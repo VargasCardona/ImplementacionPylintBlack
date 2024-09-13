@@ -1,4 +1,5 @@
-# CRUD Exercise: FastAPI with Docker (Person and Cat Management)
+![logo](https://github.com/user-attachments/assets/6a948440-925d-4334-8e17-7cf2351d4108)
+# CRUD Exercise: FastAPI with Docker (Class management)
 
 This repository contains a simple CRUD (Create, Read, Update, Delete) exercise built using FastAPI for managing two independent entities: Person and Cat. The project is containerized using Docker for easy database setup and management, allowing seamless interaction with both entities.
 Features:
