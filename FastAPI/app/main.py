@@ -1,3 +1,7 @@
+"""
+This module initializes the FastAPI application and sets up the database connection
+"""
+
 from fastapi import FastAPI, Depends
 from helpers.api_key_auth import get_api_key
 
