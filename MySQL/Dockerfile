@@ -1,8 +1,8 @@
 FROM mysql:8.0
 
 ENV MYSQL_ROOT_PASSWORD root
-ENV MYSQL_DATABASE practica_contenedores
-ENV MYSQL_USER eam-user
+ENV MYSQL_DATABASE main_database
+ENV MYSQL_USER root-user
 ENV MYSQL_PASSWORD root
 
 EXPOSE 3306
