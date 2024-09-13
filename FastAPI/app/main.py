@@ -3,7 +3,6 @@ This module initializes the FastAPI application and sets up the database connect
 """
 
 from fastapi import FastAPI, Depends
-from helpers.api_key_auth import get_api_key
 
 from starlette.responses import RedirectResponse
 
