@@ -6,8 +6,8 @@ from fastapi import FastAPI, Depends
 
 from starlette.responses import RedirectResponse
 
-from .models.person import Person
-from .models.cat import Cat
+from routes.person_route import person_route
+from routes.cat_route import cat_route
 
 app = FastAPI(
     title="Microservice of persons and little cats",
@@ -27,20 +27,11 @@ def read_root():
     Returns:
         RedirectResponse: A response object that redirects the client to the "/docs" URL.
     """
-    return
+    return RedirectResponse(url="/docs")
 
 
-@app.post("/post_person")
-def post_person(person: Person):
-    """
-    Create a new person.
-    """
-    print(person)
+# -------- Person --------
+app.include_router(person_route, prefix="/api/persons", tags=["Persons"])
 
-
-@app.post("/post_cat")
-def post_cat(cat: Cat):
-    """
-    Create a new cat.
-    """
-    print(cat)
+# -------- Cat --------
+app.include_router(cat_route, prefix="/api/cats", tags=["Cats"])
