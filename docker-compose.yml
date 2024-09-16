@@ -1,14 +1,14 @@
 services:
   db:
     build: 
-      context: ./MySQL
+      context: ./mysql
       dockerfile: Dockerfile
     container_name: database
     restart: always
     ports:
       - 3306:3306
     volumes:
-      - ./MySQL/volumes:/var/lib/mysql
+      - ./mysql/volumes:/var/lib/mysql
     hostname: crud_database
     networks:
       - net_crud_database
@@ -31,7 +31,7 @@ services:
   # - fastapi refers to the container where the application backend will be stored.
   fastapi:
     build: 
-      context: ./FastAPI
+      context: ./fast_api
       dockerfile: Dockerfile
     container_name: backend
     restart: always
