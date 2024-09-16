@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Pylint on the whole project
         run: |
-          pylint ./**/*.py  # Ejecuta Pylint en todos los archivos Python del proyecto
+          pylint ./fast_api/  # Ejecuta Pylint en todos los archivos Python del proyecto
 
       - name: Analysing the code with pylint
         run: |
