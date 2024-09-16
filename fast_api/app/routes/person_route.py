@@ -1,79 +1,122 @@
 """
-This module defines the routes for user-related operations in the FastAPI application.
+This module defines the routes for person-related operations in the FastAPI application.
 Routes:
-    - POST /users/: Create a new user.
-    - GET /users: Retrieve a list of all users.
-    - GET /users/{user_id}: Retrieve a specific user by their ID.
+    - POST /persons/: Create a new person.
+    - GET /persons: Retrieve a list of all persons.
+    - GET /persons/{person_id}: Retrieve a specific person by their ID.
+    - PUT /persons/{person_id}: Update a specific person by their ID.
+    - DELETE /persons/{person_id}: Delete a specific person by their ID.
 Functions:
-    - create_users(user: User): Creates a new user with the provided details.
-    - get_users(): Retrieves a list of all users from the database.
-    - get_user(user_id: int): Retrieves a specific user by their ID. 
-      Returns an error message if the user is not found.
+    - create_persons(person: Person): Creates a new person with the provided details.
+    - get_persons(): Retrieves a list of all persons from the database.
+    - get_person(person_id: int): Retrieves a specific person by their ID. 
+      Returns an error message if the person is not found.
+    - update_person(person_id: int, person: Person): Updates a specific person by their ID.
+    - delete_person(person_id: int): Deletes a specific person by their ID.
 Dependencies:
-    - UserModel: The database model for users.
-    - User: The Pydantic model for user data validation.
+    - PersonModel: The database model for persons.
+    - Person: The Pydantic model for person data validation.
     - APIRouter: FastAPI router for defining routes.
     - Body: FastAPI dependency for parsing request bodies.
 """
 
 from fastapi import APIRouter, Body
 
-from models.user import UserModel as User
+from models.person import PersonModel
 
-user_route = APIRouter()
+person_route = APIRouter()
 
 
-@user_route.post("/users/")
-def create_users(user: User = Body(...)):
+@person_route.post("/persons/")
+def create_persons(person: PersonModel = Body(...)):
     """
-    Create a new user.
+    Create a new person.
 
     Args:
-        user (User): The user object containing the username, password, and email.
+        person (Person): The person object containing the name, age, email,
+        address, is_employed and salary.
 
     Returns:
         None
     """
-    # UserModel.create(username=user.username, password=user.password, email=user.email)
-    print(user)
-    return {"message": "User created successfully"}
+    PersonModel.create(
+        name=person.name,
+        age=person.age,
+        email=person.email,
+        address=person.address,
+        is_employed=person.is_employed,
+        salary=person.salary,
+    )
+    return {"message": "Person created successfully"}
 
 
-@user_route.get("/users")
-def get_users():
+@person_route.get("/persons")
+def get_persons():
     """
-    Retrieve a list of users from the database.
+    Retrieve a list of persons from the database.
 
-    This function queries the UserModel to select all users with an ID greater than 0,
+    This function queries the PersonModel to select all persons with an ID greater than 0,
     converts the result to a dictionary format, and returns it as a list.
 
     Returns:
-        list: A list of dictionaries, each representing a user.
+        list: A list of dictionaries, each representing a person.
     """
-    # user = UserModel.select().where(UserModel.id > 0).dicts()
-    # return list(user)
-    return {"message": "Get all users"}
+    person = PersonModel.select().where(PersonModel.id > 0).dicts()
+    return list(person)
 
 
-@user_route.get("/users/{user_id}")
-def get_user(user_id: int):
+@person_route.get("/persons/{person_id}")
+def get_person(person_id: int):
     """
-    Retrieve a user by their ID.
+    Retrieve a person by their ID.
 
     Args:
-        user_id (int): The ID of the user to retrieve.
+        person_id (int): The ID of the person to retrieve.
 
     Returns:
-        UserModel: The user object if found.
-        dict: An error message if the user is not found.
+        PersonModel: The person object if found.
+        dict: An error message if the person is not found.
     """
-    print(user_id)
     try:
-        # user = UserModel.get(UserModel.id == user_id)
-        # return user
-        return {"message": "Get user by ID"}
-    # except UserModel.DoesNotExist:
-    except FileNotFoundError as e:
-        # return {"error": "User not found"}
-        print(e)
-        return {"message": "User not found"}
+        person = PersonModel.get(PersonModel.id == person_id)
+        return person
+    except PersonModel.DoesNotExist:
+        return {"error": "Person not found"}
+
+
+@person_route.put("/persons/{person_id}")
+def update_person(person_id: int, person: PersonModel = Body(...)):
+    """
+    Update a person by their ID.
+
+    Args:
+        person_id (int): The ID of the person to update.
+        person (Person): The person object containing the updated details.
+
+    Returns:
+        None
+    """
+    PersonModel.update(
+        name=person.name,
+        age=person.age,
+        email=person.email,
+        address=person.address,
+        is_employed=person.is_employed,
+        salary=person.salary,
+    ).where(PersonModel.id == person_id).execute()
+    return {"message": "Person updated successfully"}
+
+
+@person_route.delete("/persons/{person_id}")
+def delete_person(person_id: int):
+    """
+    Delete a person by their ID.
+
+    Args:
+        person_id (int): The ID of the person to delete.
+
+    Returns:
+        None
+    """
+    PersonModel.delete().where(PersonModel.id == person_id).execute()
+    return {"message": "Person deleted successfully"}
