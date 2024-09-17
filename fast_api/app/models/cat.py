@@ -5,7 +5,7 @@ This module defines the Pydantic model for a cat.
 from pydantic import BaseModel, Field
 
 
-class CatModel(BaseModel):
+class Cat(BaseModel):
     """Pydantic model for a cat."""
 
     id: int

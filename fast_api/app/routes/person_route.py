@@ -22,13 +22,13 @@ Dependencies:
 
 from fastapi import APIRouter, Body
 
-from models.person import PersonModel
+from database import PersonModel
+from models.person import Person
 
 person_route = APIRouter()
 
-
 @person_route.post("/persons/")
-def create_persons(person: PersonModel = Body(...)):
+def create_persons(person: Person = Body(...)):
     """
     Create a new person.
 
@@ -85,7 +85,7 @@ def get_person(person_id: int):
 
 
 @person_route.put("/persons/{person_id}")
-def update_person(person_id: int, person: PersonModel = Body(...)):
+def update_person(person_id: int, person: Person = Body(...)):
     """
     Update a person by their ID.
 

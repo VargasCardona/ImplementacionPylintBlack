@@ -5,7 +5,7 @@ This module defines the Pydantic model for a person.
 from pydantic import BaseModel, Field, EmailStr
 
 
-class PersonModel(BaseModel):
+class Person(BaseModel):
     """Pydantic model for a person."""
 
     id: int

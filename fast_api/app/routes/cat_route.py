@@ -22,13 +22,14 @@ Dependencies:
 
 from fastapi import APIRouter, Body
 
-from models.cat import CatModel
+from database import CatModel
+from models.cat import Cat
 
 cat_route = APIRouter()
 
 
 @cat_route.post("/cats/")
-def create_cats(cat: CatModel = Body(...)):
+def create_cats(cat: Cat = Body(...)):
     """
     Create a new cat.
 
@@ -85,7 +86,7 @@ def get_cat(cat_id: int):
 
 
 @cat_route.put("/cats/{cat_id}")
-def update_cat(cat_id: int, cat: CatModel = Body(...)):
+def update_cat(cat_id: int, cat: Cat = Body(...)):
     """
     Update a cat by their ID.
 
