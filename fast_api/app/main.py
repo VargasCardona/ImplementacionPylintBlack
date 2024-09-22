@@ -2,11 +2,11 @@
 This module initializes the FastAPI application and sets up the database connection
 """
 
-from fastapi import FastAPI
-
+from fastapi import FastAPI, Depends
 from starlette.responses import RedirectResponse
 
 # pylint: disable=import-error
+from helpers.api_key_auth import get_api_key
 from routes.person_route import person_route
 from routes.cat_route import cat_route
 
@@ -34,7 +34,17 @@ def read_root():
 
 
 # -------- Person --------
-app.include_router(person_route, prefix="/api/persons", tags=["Persons"])
+app.include_router(
+    person_route,
+    prefix="/api/persons",
+    tags=["Persons"],
+    dependencies=[Depends(get_api_key)],
+)
 
 # -------- Cat --------
-app.include_router(cat_route, prefix="/api/cats", tags=["Cats"])
+app.include_router(
+    cat_route,
+    prefix="/api/cats",
+    tags=["Cats"],
+    dependencies=[Depends(get_api_key)],
+)
