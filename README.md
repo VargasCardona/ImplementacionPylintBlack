@@ -23,15 +23,12 @@ Person and Cat are two separate, unrelated classes.
 ## How to Run:
 
 - Clone the repository.
-- Use Docker to set up the database by running: `docker-compose up`
-
-## Install dependencies:
-
-`pip install -r requirements.txt`
-
-Start the FastAPI application: `uvicorn main:app --reload`
+- Build and start the Docker containers by running: `docker-compose up --build`
 
 Access the API at `http://localhost:8000/docs` to interact with the CRUD operations.
+The ApiKey is: 4d631589-409c-4c7f-8729-c21064c4f242
+
+Access the Adminer at `http://localhost:8080` to interact with the data base.
 
 ## Contributors
 - Nicolás Vargas Cardona
