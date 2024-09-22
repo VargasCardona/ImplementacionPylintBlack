@@ -22,8 +22,11 @@ Dependencies:
 
 from fastapi import APIRouter, Body
 
+# pylint: disable=import-error
 from database import CatModel
 from models.cat import Cat
+
+# pylint: enable=import-error
 
 cat_route = APIRouter()
 

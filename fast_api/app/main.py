@@ -6,8 +6,11 @@ from fastapi import FastAPI
 
 from starlette.responses import RedirectResponse
 
+# pylint: disable=import-error
 from routes.person_route import person_route
 from routes.cat_route import cat_route
+
+# pylint: enable=import-error
 
 app = FastAPI(
     title="Microservice of persons and little cats",

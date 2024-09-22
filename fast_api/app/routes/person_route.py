@@ -22,10 +22,14 @@ Dependencies:
 
 from fastapi import APIRouter, Body
 
+# pylint: disable=import-error
 from database import PersonModel
 from models.person import Person
 
+# pylint: enable=import-error
+
 person_route = APIRouter()
+
 
 @person_route.post("/persons/")
 def create_persons(person: Person = Body(...)):

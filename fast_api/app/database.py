@@ -70,6 +70,7 @@ class PersonModel(Model):
     is_employed = BooleanField()
     salary = DoubleField()
 
+    # pylint: disable=R0903
     class Meta:
         """
         Meta class for configuring database settings.
@@ -106,6 +107,7 @@ class CatModel(Model):
     weight = DoubleField()
     owner_id = IntegerField()
 
+    # pylint: disable=R0903
     class Meta:
         """
         Meta class for configuring the database settings.
